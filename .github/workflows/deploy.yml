@@ -42,6 +42,7 @@ jobs:
               with:
                 server: srv.svaren.dev
                 username: aaqc
+                local-dir: ./build/
                 password: ${{ secrets.ftp_password }}
               env:
                   user_name: "github-actions[bot]"
