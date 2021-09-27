@@ -9,6 +9,7 @@ on:
 jobs:
     build:
         runs-on: ubuntu-latest
+        name: Build and deploy website to https://dash.aaqc.svaren.dev
 
         strategy:
             matrix:
