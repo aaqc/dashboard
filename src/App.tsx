@@ -8,7 +8,7 @@ function App() {
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
-          NANO IS THE BEST
+          NANO IS THE BEST :D
         </p>
         <a
           className="App-link"
