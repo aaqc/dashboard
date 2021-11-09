@@ -1,26 +1,22 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import {Route, Routes,Link } from 'react-router-dom';
+import useAuth from './components/auth/useAuth';
+import Navbar from './components/navbar/Navbar';
+import Home from './pages/Home';
+import NotFound from './pages/NotFound';
+import Login from './pages/Login';
+import Admin from './pages/Admin';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          NANO IS THE BEST :D
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+function App(){
+  return(
+    <>
+      <Routes>
+        <Route path="/login" element={<Login />} />
+        <Route path='/*' element={<Admin />} />      
+      </Routes>
+    </>
   );
 }
+
 
 export default App;
