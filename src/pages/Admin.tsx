@@ -1,6 +1,11 @@
 import {Route, Routes,Link } from 'react-router-dom';
 import NotFound from './NotFound';
-function Admin() {
+import AuthProvider from '../components/auth/AuthProvider';
+import { Navigate } from 'react-router-dom';
+
+
+const Admin = () => {
+  if (AuthProvider.checkIfLoggedIn()) {  
     return (
       <div>
         <nav>
@@ -12,10 +17,16 @@ function Admin() {
           <Route path="/id" element={<p>id</p>} />
           <Route path="/me" element={<p>me</p>} />
           <Route path="/*" element={<NotFound />} />
-
         </Routes>
       </div>
     );
   }
+  else {
+    return (
+     <Navigate to="/login" />
+    );
+  }
+};
+
 
 export default Admin;
