@@ -1,3 +1,19 @@
+import { createStore } from 'redux'
+
+
+function counterReducer(state = { value: 0 }, action: any) {
+  switch (action.type) {
+    case 'counter/incremented':
+      return { value: state.value + 1 }
+    case 'counter/decremented':
+      return { value: state.value - 1 }
+    default:
+      return state
+  }
+}
+let store = createStore(counterReducer)
+
+
 
 const Login = () =>  {
   return ( 
@@ -47,7 +63,7 @@ const Login = () =>  {
 
             <div className="flex items-center justify-between">
               <div className="text-sm">
-                <a href="#" className="font-medium text-indigo-600 hover:text-indigo-500">
+                <a href="/forgot_password" className="font-medium text-indigo-600 hover:text-indigo-500">
                   Forgot your password?
                 </a>
               </div>
@@ -63,6 +79,19 @@ const Login = () =>  {
                 </span>
                 Sign in
               </button>
+              <button
+                onClick={() => {console.log(store.getState().value)} }
+                
+              >
+                Click
+              </button>
+              <button
+                onClick={() => {store.dispatch({ type: 'counter/incremented' })} }
+                
+              >
+                Add
+              </button>
+              <p>{store.getState().value}</p>
             </div>
           </div>
         </div>

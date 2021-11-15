@@ -1,4 +1,6 @@
-import React, {Component} from 'react';
+import {Component} from 'react';
+
+
 
 interface State {
   isLoggedIn: boolean;
@@ -24,8 +26,13 @@ class AuthProvider extends Component<void, State>{
   }
 
   login(user: any) {
-    this.setState({user});
-    localStorage.setItem('user', JSON.stringify(user));
+    try {
+      this.setState({user});
+      const serializedState = JSON.stringify(user);
+      localStorage.setItem('user', serializedState);
+   } catch (err) {
+      // die silently
+   }
   }
 
   logout() {
@@ -34,14 +41,17 @@ class AuthProvider extends Component<void, State>{
   }
 
   checkIfLoggedIn(): boolean{
-    return this.state.isLoggedIn;
+      return this.state.isLoggedIn;
   }
-
 
   checkAuth() {
     const userString = localStorage.getItem('user');
     if (userString) {
       this.setState({user: JSON.parse(userString)});
+      this.setState({isLoggedIn: true});
+    }
+    else{
+      this.setState({user: null});
     }
   }
 
