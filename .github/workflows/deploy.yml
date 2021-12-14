@@ -13,7 +13,7 @@ jobs:
 
         strategy:
             matrix:
-                node-version: [14.x]
+                node-version: [16.x]
 
         steps:
             - name: Checkout repository
@@ -24,6 +24,9 @@ jobs:
               with:
                   node-version: ${{ matrix.node-version }}
 
+            - name: Install dependencies
+              run: yarn install
+ 
             - name: Cache dependencies
               uses: actions/cache@v2
               with:
@@ -31,13 +34,10 @@ jobs:
                       **/node_modules
                   key: ${{ runner.os }}-${{ hashFiles('**/package-lock.json') }}
 
-            - name: Install dependencies
-              run: yarn install
 
             - name: Build site
               run: yarn build
-            - name: Deploy over FTP
-              uses: SamKirkland/FTP-Deploy-Action@4.1.0
+
             - name: Upload Files
               id: upload
               uses: Creepios/sftp-action@v1.0.3
@@ -48,6 +48,3 @@ jobs:
                 password: ${{ secrets.ftp_password }}
                 localPath: './build/'
                 remotePath: './webroot/'
-              env:
-                  user_name: "github-actions[bot]"
-                  user_email: "github-actions[bot]@users.noreply.github.com"
