@@ -36,16 +36,18 @@ jobs:
 
             - name: Build site
               run: yarn build
-
             - name: Deploy over FTP
               uses: SamKirkland/FTP-Deploy-Action@4.1.0
+            - name: Upload Files
+              id: upload
+              uses: Creepios/sftp-action@v1.0.3
               with:
-                server: srv.svaren.dev
-                username: aaqc
-                local-dir: ./build/
+                host: srv.svaren.dev
+                port: 2022
+                username: 'githubyx8.d90f9279'
                 password: ${{ secrets.ftp_password }}
+                localPath: './build/'
+                remotePath: './webroot/'
               env:
                   user_name: "github-actions[bot]"
                   user_email: "github-actions[bot]@users.noreply.github.com"
-                  github_token: ${{ secrets.ACTIONS_DEPLOY_ACCESS_TOKEN }}
-                  repository: ${{ github.repository }}
